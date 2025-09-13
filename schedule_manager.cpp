@@ -1,4 +1,5 @@
 #include "schedule.h"
+#include "colors.h"
 #include "route.h"
 #include <iostream>
 #include <string>
@@ -6,12 +7,12 @@
 void manageSchedules() {
     while (true) {
         std::cout << "\n=== Manage Schedules ===\n";
-        std::cout << "1. Add Schedule\n";
+        std::cout << LIGHT_YELLOW << "1. Add Schedule\n";
         std::cout << "2. List Schedules\n";
         std::cout << "3. Update Schedule\n";
-        std::cout << "4. Delete Schedule\n";
-        std::cout << "0. Back\n";
-        std::cout << "Choose option: ";
+        std::cout << "4. Delete Schedule\n" << RESET;
+        std::cout << GRAY << "0. Back\n" << RESET;
+        std::cout << WHITE << "Choose option: " << RESET;
 
         int option;
         std::cin >> option;
@@ -32,7 +33,7 @@ void manageSchedules() {
                 std::getline(std::cin, time);
 
                 createSchedule(routeId, time);
-                std::cout << "Schedule added.\n";
+                std::cout << GREEN << "Schedule added.\n" << RESET;
                 break;
             }
             case 2: {
@@ -47,7 +48,7 @@ void manageSchedules() {
 
                 Schedule* s = getScheduleById(id);
                 if (!s) {
-                    std::cout << "Schedule not found.\n";
+                    std::cout << RED << "Schedule not found.\n" << RESET;
                     break;
                 }
 
@@ -62,7 +63,7 @@ void manageSchedules() {
                 std::getline(std::cin, newTime);
 
                 updateSchedule(id, newRouteId, newTime);
-                std::cout << "Schedule updated.\n";
+                std::cout << GREEN << "Schedule updated.\n" << RESET;
                 break;
             }
             case 4: {
@@ -74,7 +75,7 @@ void manageSchedules() {
                 break;
             }
             default:
-                std::cout << "Invalid option.\n";
+                std::cout << RED << "Invalid option.\n" << RESET;
         }
     }
 }

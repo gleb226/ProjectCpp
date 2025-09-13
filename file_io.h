@@ -17,5 +17,14 @@ void loadSchedulesFromFile(const std::string& filename);
 
 void saveAllData();
 void loadAllData();
+void saveStops();
+void loadStops();
+void saveTransports();
+void loadTransports();
+void saveRoutes();
+void loadRoutes();
+void saveSchedules();
+void loadSchedules();
+
 
 #endif

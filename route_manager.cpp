@@ -1,5 +1,6 @@
 #include "route.h"
 #include "transport.h"
+#include "colors.h"
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -7,12 +8,12 @@
 void manageRoutes() {
     while (true) {
         std::cout << "\n=== Manage Routes ===\n";
-        std::cout << "1. Add Route\n";
+        std::cout << ORANGE << "1. Add Route\n";
         std::cout << "2. List Routes\n";
         std::cout << "3. Update Route\n";
-        std::cout << "4. Delete Route\n";
-        std::cout << "0. Back\n";
-        std::cout << "Choose option: ";
+        std::cout << "4. Delete Route\n" << RESET;
+        std::cout << GRAY << "0. Back\n" << RESET;
+        std::cout << WHITE << "Choose option: " << RESET;
 
         int option;
         std::cin >> option;

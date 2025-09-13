@@ -1,204 +1,215 @@
 #include "file_io.h"
+#include "colors.h"
+#include <iostream>
+#include <fstream>
 #include "stop.h"
 #include "transport.h"
 #include "route.h"
 #include "schedule.h"
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <vector>
 
 extern std::vector<Stop> stops;
 extern std::vector<Transport> transports;
 extern std::vector<Route> routes;
 extern std::vector<Schedule> schedules;
 
+void saveAllData() {
+    std::cout << MINT << "\n=== Saving Data ===" << RESET << std::endl;
 
-void saveStopsToFile(const std::string& filename) {
-    std::ofstream out(filename);
-    if (!out) {
-        std::cout << "Failed to open " << filename << " for writing.\n";
+    saveStops();
+    saveTransports();
+    saveRoutes();
+    saveSchedules();
+
+    std::cout << GREEN << "✓ All data saved successfully!" << RESET << std::endl;
+}
+
+void loadAllData() {
+    std::cout << MINT << "\n=== Loading Data ===" << RESET << std::endl;
+
+    loadStops();
+    loadTransports();
+    loadRoutes();
+    loadSchedules();
+
+    std::cout << BLUE << "✓ All data loaded successfully!" << RESET << std::endl;
+}
+
+void saveStops() {
+    std::ofstream file("stops.txt");
+    if (!file.is_open()) {
+        std::cout << ORANGE << "⚠ Failed to open stops.txt for writing." << RESET << std::endl;
         return;
     }
 
     for (const auto& stop : stops) {
-        out << stop.id << ';' << stop.name << ';' << stop.location << '\n';
+        file << stop.id << "|" << stop.name << "|" << stop.location << std::endl;
     }
 
-    std::cout << "Stops saved to " << filename << "\n";
+    std::cout << PEACH << "→ Stops saved to file" << RESET << std::endl;
+    file.close();
 }
 
-void loadStopsFromFile(const std::string& filename) {
-    std::ifstream in(filename);
-    if (!in) {
-        std::cout << "No file " << filename << " found to load.\n";
+void saveTransports() {
+    std::ofstream file("transports.txt");
+    if (!file.is_open()) {
+        std::cout << ORANGE << "⚠ Failed to open transports.txt for writing." << RESET << std::endl;
+        return;
+    }
+
+    for (const auto& transport : transports) {
+        file << transport.id << "|" << transport.name << std::endl;
+    }
+
+    std::cout << LIGHT_BLUE << "→ Transports saved to file" << RESET << std::endl;
+    file.close();
+}
+
+void saveRoutes() {
+    std::ofstream file("routes.txt");
+    if (!file.is_open()) {
+        std::cout << ORANGE << "⚠ Failed to open routes.txt for writing." << RESET << std::endl;
+        return;
+    }
+
+    for (const auto& route : routes) {
+        file << route.id << "|" << route.name << "|" << route.transportId << "|";
+        for (size_t i = 0; i < route.stopIds.size(); ++i) {
+            if (i > 0) file << ",";
+            file << route.stopIds[i];
+        }
+        file << std::endl;
+    }
+
+    std::cout << LIGHT_PURPLE << "→ Routes saved to file" << RESET << std::endl;
+    file.close();
+}
+
+void saveSchedules() {
+    std::ofstream file("schedules.txt");
+    if (!file.is_open()) {
+        std::cout << ORANGE << "⚠ Failed to open schedules.txt for writing." << RESET << std::endl;
+        return;
+    }
+
+    for (const auto& schedule : schedules) {
+        file << schedule.id << "|" << schedule.routeId << "|"
+             << schedule.time << std::endl;  // ✅ ВИПРАВЛЕНО
+    }
+
+    std::cout << LIGHT_YELLOW << "→ Schedules saved to file" << RESET << std::endl;
+    file.close();
+}
+void loadStops() {
+    std::ifstream file("stops.txt");
+    if (!file.is_open()) {
+        std::cout << GRAY << "ℹ No stops.txt found, starting with empty data" << RESET << std::endl;
         return;
     }
 
     stops.clear();
     std::string line;
-    while (std::getline(in, line)) {
-        size_t p1 = line.find(';');
-        size_t p2 = line.find(';', p1 + 1);
-        if (p1 == std::string::npos || p2 == std::string::npos) continue;
+    while (std::getline(file, line)) {
+        size_t pos1 = line.find('|');
+        size_t pos2 = line.find('|', pos1 + 1);
 
-        Stop stop;
-        stop.id = std::stoi(line.substr(0, p1));
-        stop.name = line.substr(p1 + 1, p2 - p1 - 1);
-        stop.location = line.substr(p2 + 1);
-
-        stops.push_back(stop);
+        if (pos1 != std::string::npos && pos2 != std::string::npos) {
+            Stop stop;
+            stop.id = std::stoi(line.substr(0, pos1));
+            stop.name = line.substr(pos1 + 1, pos2 - pos1 - 1);
+            stop.location = line.substr(pos2 + 1);
+            stops.push_back(stop);
+        }
     }
 
-    std::cout << "Stops loaded from " << filename << "\n";
+    std::cout << PEACH << "✓ Loaded " << stops.size() << " stops" << RESET << std::endl;
+    file.close();
 }
 
-
-void saveTransportsToFile(const std::string& filename) {
-    std::ofstream out(filename);
-    if (!out) {
-        std::cout << "Failed to open " << filename << " for writing.\n";
-        return;
-    }
-
-    for (const auto& t : transports) {
-        out << t.id << ';' << t.name << '\n';
-    }
-
-    std::cout << "Transports saved to " << filename << "\n";
-}
-
-void loadTransportsFromFile(const std::string& filename) {
-    std::ifstream in(filename);
-    if (!in) {
-        std::cout << "No file " << filename << " found to load.\n";
+void loadTransports() {
+    std::ifstream file("transports.txt");
+    if (!file.is_open()) {
+        std::cout << GRAY << "ℹ No transports.txt found, starting with empty data" << RESET << std::endl;
         return;
     }
 
     transports.clear();
     std::string line;
-    while (std::getline(in, line)) {
-        size_t sep = line.find(';');
-        if (sep == std::string::npos) continue;
-
-        Transport t;
-        t.id = std::stoi(line.substr(0, sep));
-        t.name = line.substr(sep + 1);
-
-        transports.push_back(t);
-    }
-
-    std::cout << "Transports loaded from " << filename << "\n";
-}
-
-
-void saveRoutesToFile(const std::string& filename) {
-    std::ofstream out(filename);
-    if (!out) {
-        std::cout << "Failed to open " << filename << " for writing.\n";
-        return;
-    }
-
-    for (const auto& r : routes) {
-        out << r.id << ';' << r.name << ';' << r.transportId << ';';
-        for (size_t i = 0; i < r.stopIds.size(); ++i) {
-            out << r.stopIds[i];
-            if (i + 1 < r.stopIds.size()) out << ',';
+    while (std::getline(file, line)) {
+        size_t pos = line.find('|');
+        if (pos != std::string::npos) {
+            Transport transport;
+            transport.id = std::stoi(line.substr(0, pos));
+            transport.name = line.substr(pos + 1);
+            transports.push_back(transport);
         }
-        out << '\n';
     }
 
-    std::cout << "Routes saved to " << filename << "\n";
+    std::cout << LIGHT_BLUE << "✓ Loaded " << transports.size() << " transports" << RESET << std::endl;
+    file.close();
 }
 
-void loadRoutesFromFile(const std::string& filename) {
-    std::ifstream in(filename);
-    if (!in) {
-        std::cout << "No file " << filename << " found to load.\n";
+void loadRoutes() {
+    std::ifstream file("routes.txt");
+    if (!file.is_open()) {
+        std::cout << GRAY << "ℹ No routes.txt found, starting with empty data" << RESET << std::endl;
         return;
     }
 
     routes.clear();
     std::string line;
-    while (std::getline(in, line)) {
-        size_t p1 = line.find(';');
-        size_t p2 = line.find(';', p1 + 1);
-        size_t p3 = line.find(';', p2 + 1);
-        if (p1 == std::string::npos || p2 == std::string::npos || p3 == std::string::npos) continue;
+    while (std::getline(file, line)) {
+        size_t pos1 = line.find('|');
+        size_t pos2 = line.find('|', pos1 + 1);
+        size_t pos3 = line.find('|', pos2 + 1);
 
-        Route r;
-        r.id = std::stoi(line.substr(0, p1));
-        r.name = line.substr(p1 + 1, p2 - p1 - 1);
-        r.transportId = std::stoi(line.substr(p2 + 1, p3 - p2 - 1));
+        if (pos1 != std::string::npos && pos2 != std::string::npos && pos3 != std::string::npos) {
+            Route route;
+            route.id = std::stoi(line.substr(0, pos1));
+            route.name = line.substr(pos1 + 1, pos2 - pos1 - 1);
+            route.transportId = std::stoi(line.substr(pos2 + 1, pos3 - pos2 - 1));
 
-        std::string stopsStr = line.substr(p3 + 1);
-        r.stopIds.clear();
-        size_t pos = 0;
-        while ((pos = stopsStr.find(',')) != std::string::npos) {
-            r.stopIds.push_back(std::stoi(stopsStr.substr(0, pos)));
-            stopsStr.erase(0, pos + 1);
+            std::string stopIdsStr = line.substr(pos3 + 1);
+            if (!stopIdsStr.empty()) {
+                size_t start = 0;
+                size_t comma = stopIdsStr.find(',');
+                while (comma != std::string::npos) {
+                    route.stopIds.push_back(std::stoi(stopIdsStr.substr(start, comma - start)));
+                    start = comma + 1;
+                    comma = stopIdsStr.find(',', start);
+                }
+                route.stopIds.push_back(std::stoi(stopIdsStr.substr(start)));
+            }
+
+            routes.push_back(route);
         }
-        if (!stopsStr.empty()) {
-            r.stopIds.push_back(std::stoi(stopsStr));
-        }
-
-        routes.push_back(r);
     }
 
-    std::cout << "Routes loaded from " << filename << "\n";
+    std::cout << LIGHT_PURPLE << "✓ Loaded " << routes.size() << " routes" << RESET << std::endl;
+    file.close();
 }
 
-
-void saveSchedulesToFile(const std::string& filename) {
-    std::ofstream out(filename);
-    if (!out) {
-        std::cout << "Failed to open " << filename << " for writing.\n";
-        return;
-    }
-
-    for (const auto& s : schedules) {
-        out << s.id << ';' << s.routeId << ';' << s.time << '\n';
-    }
-
-    std::cout << "Schedules saved to " << filename << "\n";
-}
-
-void loadSchedulesFromFile(const std::string& filename) {
-    std::ifstream in(filename);
-    if (!in) {
-        std::cout << "No file " << filename << " found to load.\n";
+void loadSchedules() {
+    std::ifstream file("schedules.txt");
+    if (!file.is_open()) {
+        std::cout << GRAY << "ℹ No schedules.txt found, starting with empty data" << RESET << std::endl;
         return;
     }
 
     schedules.clear();
     std::string line;
-    while (std::getline(in, line)) {
-        size_t p1 = line.find(';');
-        size_t p2 = line.find(';', p1 + 1);
-        if (p1 == std::string::npos || p2 == std::string::npos) continue;
+    while (std::getline(file, line)) {
+        size_t pos1 = line.find('|');
+        size_t pos2 = line.find('|', pos1 + 1);
 
-        Schedule s;
-        s.id = std::stoi(line.substr(0, p1));
-        s.routeId = std::stoi(line.substr(p1 + 1, p2 - p1 - 1));
-        s.time = line.substr(p2 + 1);
-
-        schedules.push_back(s);
+        if (pos1 != std::string::npos && pos2 != std::string::npos) {  // ✅ ВИПРАВЛЕНО
+            Schedule schedule;
+            schedule.id = std::stoi(line.substr(0, pos1));
+            schedule.routeId = std::stoi(line.substr(pos1 + 1, pos2 - pos1 - 1));
+            schedule.time = line.substr(pos2 + 1);  // ✅ ВИПРАВЛЕНО
+            schedules.push_back(schedule);
+        }
     }
 
-    std::cout << "Schedules loaded from " << filename << "\n";
-}
-
-
-void saveAllData() {
-    saveStopsToFile("stops.txt");
-    saveTransportsToFile("transports.txt");
-    saveRoutesToFile("routes.txt");
-    saveSchedulesToFile("schedules.txt");
-}
-
-void loadAllData() {
-    loadStopsFromFile("stops.txt");
-    loadTransportsFromFile("transports.txt");
-    loadRoutesFromFile("routes.txt");
-    loadSchedulesFromFile("schedules.txt");
+    std::cout << LIGHT_YELLOW << "✓ Loaded " << schedules.size() << " schedules" << RESET << std::endl;
+    file.close();
 }

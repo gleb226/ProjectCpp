@@ -1,16 +1,17 @@
 #include "transport.h"
+#include "colors.h"
 #include <iostream>
 #include <string>
 
 void manageTransports() {
     while (true) {
         std::cout << "\n=== Manage Transports ===\n";
-        std::cout << "1. Add Transport\n";
+        std::cout << LIGHT_BLUE << "1. Add Transport\n";
         std::cout << "2. List Transports\n";
         std::cout << "3. Update Transport\n";
-        std::cout << "4. Delete Transport\n";
-        std::cout << "0. Back\n";
-        std::cout << "Choose option: ";
+        std::cout << "4. Delete Transport\n" << RESET;
+        std::cout << GRAY << "0. Back\n" << RESET;
+        std::cout << WHITE << "Choose option: " << RESET;
 
         int option;
         std::cin >> option;
@@ -20,11 +21,11 @@ void manageTransports() {
 
         switch (option) {
             case 1: {
-                std::cout << "Enter transport name: ";
+                std::cout << "Enter transport name: " << RESET;
                 std::string name;
                 std::getline(std::cin, name);
                 createTransport(name);
-                std::cout << "Added transport.\n";
+                std::cout << GREEN << "Added transport.\n" << RESET;
                 break;
             }
             case 2: {
@@ -42,9 +43,9 @@ void manageTransports() {
                     std::string newName;
                     std::getline(std::cin, newName);
                     updateTransport(id, newName);
-                    std::cout << "Updated transport.\n";
+                    std::cout << GREEN << "Updated transport.\n" << RESET;
                 } else {
-                    std::cout << "Transport not found.\n";
+                    std::cout << RED << "Transport not found.\n" << RESET;
                 }
                 break;
             }
@@ -56,7 +57,7 @@ void manageTransports() {
                 break;
             }
             default:
-                std::cout << "Invalid option.\n";
+                std::cout << RED << "Invalid option.\n" << RESET;
         }
     }
 }
