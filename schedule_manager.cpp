@@ -1,5 +1,5 @@
 #include "schedule.h"
-#include "route.h"   // Для перевірок, якщо потрібно
+#include "route.h"
 #include <iostream>
 #include <string>
 

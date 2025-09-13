@@ -6,7 +6,6 @@
 #include "schedule_manager.h"
 #include "file_io.h"
 #include "reports.h"
-#include "colors.h"
 
 void showMainMenu() {
     std::cout << "\n====== Transport System ======\n";

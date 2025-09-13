@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include "stop.h"
-#include "colors.h"
 #include "stop_manager.h"
 
 extern std::vector<Stop> stops;
