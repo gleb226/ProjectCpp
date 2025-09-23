@@ -40,14 +40,14 @@ void manageStops() {
         std::cout << PEACH << "1. List stops" << std::endl;
         std::cout << "2. Add stop" << RESET << std::endl;
         std::cout << GRAY << "0. Back" << RESET << std::endl;
-        std::cout << WHITE << "Select: " << RESET;
+        std::cout << "Select: ";
 
         std::cin >> choice;
         switch (choice) {
             case 1: listStops(); break;
             case 2: addStop(); break;
             case 0: return;
-            default: std::cout << ORANGE << "⚠ Invalid option." << RESET << std::endl; break;
+            default: std::cout << ORANGE << "Invalid option." << RESET << std::endl; break;
         }
     }
 }

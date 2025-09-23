@@ -11,7 +11,7 @@ void manageTransports() {
         std::cout << "3. Update Transport\n";
         std::cout << "4. Delete Transport\n" << RESET;
         std::cout << GRAY << "0. Back\n" << RESET;
-        std::cout << WHITE << "Choose option: " << RESET;
+        std::cout << "Choose option: ";
 
         int option;
         std::cin >> option;

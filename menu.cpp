@@ -10,16 +10,16 @@
 
 void showMainMenu() {
     std::cout << MINT << "\n====== Transport System ======\n" << RESET;
-    std::cout << PEACH <<"1. Manage Stops\n";
-    std::cout << "2. Manage Transports\n";
-    std::cout << "3. Manage Routes\n";
-    std::cout << "4. Manage Schedules\n" << RESET;
-    std::cout << LAVENDER << "5. Reports\n" << RESET;
+    std::cout << LAVENDER <<"1. Manage Stops\n" << RESET;
+    std::cout << LAVENDER << "2. Manage Transports\n" << RESET;
+    std::cout << LAVENDER << "3. Manage Routes\n" << RESET;
+    std::cout << LAVENDER << "4. Manage Schedules\n" << RESET;
+    std::cout << PEACH << "5. Reports\n" << RESET;
     std::cout << GREEN << "6. Save Data\n" << RESET;
     std::cout << BLUE << "7. Load Data\n" << RESET;
     std::cout << GRAY << "0. Exit\n" << RESET;
     std::cout << "==============================\n";
-    std::cout << WHITE << "Enter choice: " << RESET;
+    std::cout << "Enter choice: " << RESET;
 }
 
 void handleUserInput() {

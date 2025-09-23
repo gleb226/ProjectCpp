@@ -8,12 +8,12 @@
 void manageRoutes() {
     while (true) {
         std::cout << "\n=== Manage Routes ===\n";
-        std::cout << ORANGE << "1. Add Route\n";
+        std::cout << LAVENDER << "1. Add Route\n";
         std::cout << "2. List Routes\n";
         std::cout << "3. Update Route\n";
         std::cout << "4. Delete Route\n" << RESET;
         std::cout << GRAY << "0. Back\n" << RESET;
-        std::cout << WHITE << "Choose option: " << RESET;
+        std::cout << "Choose option: ";
 
         int option;
         std::cin >> option;
@@ -44,7 +44,7 @@ void manageRoutes() {
                 }
 
                 createRoute(name, transportId, stopIds);
-                std::cout << "Route added.\n";
+                std::cout << GREEN << "Route added.\n" << RESET;
                 break;
             }
             case 2: {
@@ -61,7 +61,7 @@ void manageRoutes() {
 
                 Route* r = getRouteById(id);
                 if (!r) {
-                    std::cout << "Route not found.\n";
+                    std::cout << ORANGE << "Route not found.\n";
                     break;
                 }
 
@@ -84,7 +84,7 @@ void manageRoutes() {
                 while (iss >> sid) newStopIds.push_back(sid);
 
                 updateRoute(id, newName, newTransportId, newStopIds);
-                std::cout << "Route updated.\n";
+                std::cout << LIGHT_GREEN << "Route updated.\n" << RESET;
                 break;
             }
             case 4: {
@@ -96,7 +96,7 @@ void manageRoutes() {
                 break;
             }
             default:
-                std::cout << "Invalid option.\n";
+                std::cout << RED << "Invalid option.\n" << RESET;
         }
     }
 }

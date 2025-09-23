@@ -2,6 +2,7 @@
 #include "route.h"
 #include "stop.h"
 #include "transport.h"
+#include "colors.h"
 #include <iostream>
 #include <map>
 #include <vector>
@@ -19,10 +20,10 @@ void showMostPopularStops() {
         }
     }
     if (stopUsageCount.empty()) {
-        std::cout << "No data available for report.\n";
+        std::cout << ORANGE << "No data available for report.\n" << RESET;
         return;
     }
-    std::cout << "\n=== Most Popular Stops ===\n";
+    std::cout << LAVENDER << "\n=== Most Popular Stops ===\n" << RESET;
     for (const auto& [stopId, count] : stopUsageCount) {
         auto it = std::find_if(stops.begin(), stops.end(), [stopId](const Stop& s) {
             return s.id == stopId;
@@ -39,10 +40,10 @@ void showMostPopularTransport() {
         transportUsageCount[route.transportId]++;
     }
     if (transportUsageCount.empty()) {
-        std::cout << "No data available for report.\n";
+        std::cout << ORANGE << "No data available for report.\n" << RESET;
         return;
     }
-    std::cout << "\n=== Most Popular Transport ===\n";
+    std::cout << MINT << "\n=== Most Popular Transport ===\n" << RESET;
     for (const auto& [transportId, count] : transportUsageCount) {
         auto it = std::find_if(transports.begin(), transports.end(), [transportId](const Transport& t) {
             return t.id == transportId;
@@ -55,10 +56,10 @@ void showMostPopularTransport() {
 
 void showRouteStatistics() {
     if (routes.empty()) {
-        std::cout << "No routes available.\n";
+        std::cout << ORANGE << "No routes available.\n" << RESET;
         return;
     }
-    std::cout << "\n=== Route Statistics ===\n";
+    std::cout << PEACH << "\n=== Route Statistics ===\n" << RESET;
     for (const auto& route : routes) {
         std::cout << "Route: " << route.name
                   << " | Number of Stops: " << route.stopIds.size() << '\n';
@@ -75,7 +76,7 @@ void showStopsWithoutRoutes() {
     std::sort(stopsInRoutes.begin(), stopsInRoutes.end());
     stopsInRoutes.erase(std::unique(stopsInRoutes.begin(), stopsInRoutes.end()), stopsInRoutes.end());
 
-    std::cout << "\n=== Stops without Routes ===\n";
+    std::cout << LIGHT_BLUE << "\n=== Stops without Routes ===\n" << RESET;
     bool found = false;
     for (const auto& stop : stops) {
         if (!std::binary_search(stopsInRoutes.begin(), stopsInRoutes.end(), stop.id)) {
@@ -90,7 +91,7 @@ void showStopsWithoutRoutes() {
 
 void showTopRoutesByStops() {
     if (routes.empty()) {
-        std::cout << "No routes available.\n";
+        std::cout << ORANGE << "No routes available.\n" << RESET;
         return;
     }
     std::vector<const Route*> sortedRoutes;
@@ -101,7 +102,7 @@ void showTopRoutesByStops() {
         return a->stopIds.size() > b->stopIds.size();
     });
 
-    std::cout << "\n=== Top Routes by Number of Stops ===\n";
+    std::cout << LIGHT_YELLOW << "\n=== Top Routes by Number of Stops ===\n" << RESET;
     int limit = std::min(5, (int)sortedRoutes.size());
     for (int i = 0; i < limit; i++) {
         const auto* route = sortedRoutes[i];
@@ -111,12 +112,12 @@ void showTopRoutesByStops() {
 
 void showReports() {
     std::cout << "\n=== Reports Menu ===\n";
-    std::cout << "1. Show most popular stops\n";
+    std::cout << LIGHT_PINK << "1. Show most popular stops\n";
     std::cout << "2. Show most popular transport\n";
     std::cout << "3. Show route statistics\n";
     std::cout << "4. Show stops without routes\n";
-    std::cout << "5. Show top routes by number of stops\n";
-    std::cout << "0. Back\n";
+    std::cout << "5. Show top routes by number of stops\n" << RESET;
+    std::cout << GRAY << "0. Back\n" << RESET;
     std::cout << "Select an option: ";
 
     int choice;
@@ -129,6 +130,6 @@ void showReports() {
         case 4: showStopsWithoutRoutes(); break;
         case 5: showTopRoutesByStops(); break;
         case 0: return;
-        default: std::cout << "Invalid option.\n";
+        default: std::cout << RED << "Invalid option.\n" << RESET;
     }
 }

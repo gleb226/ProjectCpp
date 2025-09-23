@@ -12,7 +12,7 @@ void manageSchedules() {
         std::cout << "3. Update Schedule\n";
         std::cout << "4. Delete Schedule\n" << RESET;
         std::cout << GRAY << "0. Back\n" << RESET;
-        std::cout << WHITE << "Choose option: " << RESET;
+        std::cout << "Choose option: ";
 
         int option;
         std::cin >> option;

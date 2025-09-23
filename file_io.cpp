@@ -13,14 +13,14 @@ extern std::vector<Route> routes;
 extern std::vector<Schedule> schedules;
 
 void saveAllData() {
-    std::cout << MINT << "\n=== Saving Data ===" << RESET << std::endl;
+    std::cout << MINT << "\n=== Saving Data === \n" << RESET;
 
     saveStops();
     saveTransports();
     saveRoutes();
     saveSchedules();
 
-    std::cout << GREEN << "✓ All data saved successfully!" << RESET << std::endl;
+    std::cout << GREEN << "All data saved successfully!" << RESET << std::endl;
 }
 
 void loadAllData() {
@@ -31,13 +31,13 @@ void loadAllData() {
     loadRoutes();
     loadSchedules();
 
-    std::cout << BLUE << "✓ All data loaded successfully!" << RESET << std::endl;
+    std::cout << BLUE << "All data loaded successfully!" << RESET << std::endl;
 }
 
 void saveStops() {
     std::ofstream file("stops.txt");
     if (!file.is_open()) {
-        std::cout << ORANGE << "⚠ Failed to open stops.txt for writing." << RESET << std::endl;
+        std::cout << ORANGE << "Failed to open stops.txt for writing." << RESET << std::endl;
         return;
     }
 
@@ -45,14 +45,14 @@ void saveStops() {
         file << stop.id << "|" << stop.name << "|" << stop.location << std::endl;
     }
 
-    std::cout << PEACH << "→ Stops saved to file" << RESET << std::endl;
+    std::cout << LIGHT_GREEN << "Stops saved to file" << RESET << std::endl;
     file.close();
 }
 
 void saveTransports() {
     std::ofstream file("transports.txt");
     if (!file.is_open()) {
-        std::cout << ORANGE << "⚠ Failed to open transports.txt for writing." << RESET << std::endl;
+        std::cout << ORANGE << "Failed to open transports.txt for writing." << RESET << std::endl;
         return;
     }
 
@@ -60,14 +60,14 @@ void saveTransports() {
         file << transport.id << "|" << transport.name << std::endl;
     }
 
-    std::cout << LIGHT_BLUE << "→ Transports saved to file" << RESET << std::endl;
+    std::cout << LIGHT_BLUE << "Transports saved to file" << RESET << std::endl;
     file.close();
 }
 
 void saveRoutes() {
     std::ofstream file("routes.txt");
     if (!file.is_open()) {
-        std::cout << ORANGE << "⚠ Failed to open routes.txt for writing." << RESET << std::endl;
+        std::cout << ORANGE << "Failed to open routes.txt for writing." << RESET << std::endl;
         return;
     }
 
@@ -80,23 +80,23 @@ void saveRoutes() {
         file << std::endl;
     }
 
-    std::cout << LIGHT_PURPLE << "→ Routes saved to file" << RESET << std::endl;
+    std::cout << LIGHT_PURPLE << "Routes saved to file" << RESET << std::endl;
     file.close();
 }
 
 void saveSchedules() {
     std::ofstream file("schedules.txt");
     if (!file.is_open()) {
-        std::cout << ORANGE << "⚠ Failed to open schedules.txt for writing." << RESET << std::endl;
+        std::cout << ORANGE << "Failed to open schedules.txt for writing." << RESET << std::endl;
         return;
     }
 
     for (const auto& schedule : schedules) {
         file << schedule.id << "|" << schedule.routeId << "|"
-             << schedule.time << std::endl;  // ✅ ВИПРАВЛЕНО
+             << schedule.time << std::endl;
     }
 
-    std::cout << LIGHT_YELLOW << "→ Schedules saved to file" << RESET << std::endl;
+    std::cout << LIGHT_YELLOW << "Schedules saved to file" << RESET << std::endl;
     file.close();
 }
 void loadStops() {
@@ -121,7 +121,8 @@ void loadStops() {
         }
     }
 
-    std::cout << PEACH << "✓ Loaded " << stops.size() << " stops" << RESET << std::endl;
+    std::cout << LIGHT_GREEN << "Loaded " << stops.size() << " stops" << RESET << std::endl;
+
     file.close();
 }
 
@@ -144,7 +145,7 @@ void loadTransports() {
         }
     }
 
-    std::cout << LIGHT_BLUE << "✓ Loaded " << transports.size() << " transports" << RESET << std::endl;
+    std::cout << LIGHT_GREEN << "Loaded " << transports.size() << " transports" << RESET << std::endl;
     file.close();
 }
 
@@ -184,7 +185,7 @@ void loadRoutes() {
         }
     }
 
-    std::cout << LIGHT_PURPLE << "✓ Loaded " << routes.size() << " routes" << RESET << std::endl;
+    std::cout << LIGHT_GREEN << "Loaded " << routes.size() << " routes" << RESET << std::endl;
     file.close();
 }
 
@@ -201,11 +202,11 @@ void loadSchedules() {
         size_t pos1 = line.find('|');
         size_t pos2 = line.find('|', pos1 + 1);
 
-        if (pos1 != std::string::npos && pos2 != std::string::npos) {  // ✅ ВИПРАВЛЕНО
+        if (pos1 != std::string::npos && pos2 != std::string::npos) {
             Schedule schedule;
             schedule.id = std::stoi(line.substr(0, pos1));
             schedule.routeId = std::stoi(line.substr(pos1 + 1, pos2 - pos1 - 1));
-            schedule.time = line.substr(pos2 + 1);  // ✅ ВИПРАВЛЕНО
+            schedule.time = line.substr(pos2 + 1);
             schedules.push_back(schedule);
         }
     }
