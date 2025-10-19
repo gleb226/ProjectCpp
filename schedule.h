@@ -13,9 +13,12 @@ struct Schedule {
 
 extern std::vector<Schedule> schedules;
 
-void createSchedule(int routeId, const std::string& time);
-Schedule* getScheduleById(int id);
-void updateSchedule(int id, int newRouteId, const std::string& newTime);
+void createSchedule(int routeId, const std::string &time);
+
+Schedule *getScheduleById(int id);
+
+void updateSchedule(int id, int newRouteId, const std::string &newTime);
+
 void deleteSchedule(int id);
 
 #endif

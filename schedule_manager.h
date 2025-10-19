@@ -8,9 +8,10 @@ void manageSchedules();
 
 class ScheduleManager {
 public:
-    std::vector<Schedule*> schedules;
+    std::vector<Schedule *> schedules;
 
-    void addSchedule(Schedule* s);
+    void addSchedule(Schedule *s);
+
     void listSchedules();
 };
 

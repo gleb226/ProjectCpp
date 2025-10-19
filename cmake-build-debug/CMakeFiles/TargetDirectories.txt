@@ -1,0 +1,3 @@
+D:/Sync/Academy/C++/Final Project/cmake-build-debug/CMakeFiles/ProjectCpp.dir
+D:/Sync/Academy/C++/Final Project/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Sync/Academy/C++/Final Project/cmake-build-debug/CMakeFiles/rebuild_cache.dir

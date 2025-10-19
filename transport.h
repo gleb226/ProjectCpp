@@ -11,9 +11,12 @@ struct Transport {
 
 extern std::vector<Transport> transports;
 
-void createTransport(const std::string& name);
-Transport* getTransportById(int id);
-void updateTransport(int id, const std::string& newName);
+void createTransport(const std::string &name);
+
+Transport *getTransportById(int id);
+
+void updateTransport(int id, const std::string &newName);
+
 void deleteTransport(int id);
 
 #endif

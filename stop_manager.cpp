@@ -5,19 +5,20 @@
 #include "colors.h"
 
 extern std::vector<Stop> stops;
+
 int generateStopId();
 
 void listStops() {
     if (stops.empty()) {
-        std::cout << GRAY << "ℹ No stops available." << RESET << std::endl;
+        std::cout << GRAY << "ℹ No stops available. \n" << RESET;
         return;
     }
 
-    std::cout << PEACH << "\n=== All Stops ===" << RESET << std::endl;
-    for (const auto& s : stops) {
+    std::cout << PEACH << "\n=== All Stops === \n" << RESET;
+    for (const auto &s: stops) {
         std::cout << MINT << "ID: " << RESET << s.id
-                  << PEACH << ", Name: " << RESET << s.name
-                  << LAVENDER << ", Location: " << RESET << s.location << std::endl;
+                << PEACH << ", Name: " << RESET << s.name
+                << LAVENDER << ", Location: \n" << RESET << s.location;
     }
 }
 
@@ -30,24 +31,27 @@ void addStop() {
     std::getline(std::cin, location);
     int id = generateStopId();
     stops.push_back({id, name, location});
-    std::cout << GREEN << "✓ Stop added successfully." << RESET << std::endl;
+    std::cout << GREEN << "Stop added successfully. \n" << RESET;
 }
 
 void manageStops() {
     int choice;
     while (true) {
-        std::cout << PEACH << "\n=== Manage Stops ===" << RESET << std::endl;
-        std::cout << PEACH << "1. List stops" << std::endl;
-        std::cout << "2. Add stop" << RESET << std::endl;
-        std::cout << GRAY << "0. Back" << RESET << std::endl;
+        std::cout << "=== Manage Stops === \n";
+        std::cout << MINT << "1. List stops \n";
+        std::cout << "2. Add stop \n" << RESET;
+        std::cout << GRAY << "0. Back \n" << RESET;
         std::cout << "Select: ";
 
         std::cin >> choice;
         switch (choice) {
-            case 1: listStops(); break;
-            case 2: addStop(); break;
+            case 1: listStops();
+                break;
+            case 2: addStop();
+                break;
             case 0: return;
-            default: std::cout << ORANGE << "Invalid option." << RESET << std::endl; break;
+            default: std::cout << RED << "Invalid option. \n" << RESET;
+                break;
         }
     }
 }

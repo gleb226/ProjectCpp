@@ -6,12 +6,12 @@
 
 void manageSchedules() {
     while (true) {
-        std::cout << "\n=== Manage Schedules ===\n";
-        std::cout << LIGHT_YELLOW << "1. Add Schedule\n";
-        std::cout << "2. List Schedules\n";
-        std::cout << "3. Update Schedule\n";
-        std::cout << "4. Delete Schedule\n" << RESET;
-        std::cout << GRAY << "0. Back\n" << RESET;
+        std::cout << "\n=== Manage Schedules === \n";
+        std::cout << LIGHT_YELLOW << "1. Add Schedule \n";
+        std::cout << "2. List Schedules \n";
+        std::cout << "3. Update Schedule \n";
+        std::cout << "4. Delete Schedule \n" << RESET;
+        std::cout << GRAY << "0. Back \n" << RESET;
         std::cout << "Choose option: ";
 
         int option;
@@ -37,18 +37,20 @@ void manageSchedules() {
                 break;
             }
             case 2: {
-                for (const auto& s : schedules) {
+                for (const auto &s: schedules) {
                     std::cout << "ID: " << s.id << ", RouteID: " << s.routeId << ", Time: " << s.time << "\n";
                 }
                 break;
             }
             case 3: {
                 std::cout << "Enter schedule ID to update: ";
-                int id; std::cin >> id; std::cin.ignore();
+                int id;
+                std::cin >> id;
+                std::cin.ignore();
 
-                Schedule* s = getScheduleById(id);
+                Schedule *s = getScheduleById(id);
                 if (!s) {
-                    std::cout << RED << "Schedule not found.\n" << RESET;
+                    std::cout << RED << "Schedule not found. \n" << RESET;
                     break;
                 }
 
@@ -63,19 +65,21 @@ void manageSchedules() {
                 std::getline(std::cin, newTime);
 
                 updateSchedule(id, newRouteId, newTime);
-                std::cout << GREEN << "Schedule updated.\n" << RESET;
+                std::cout << GREEN << "Schedule updated. \n" << RESET;
                 break;
             }
             case 4: {
                 std::cout << "Enter schedule ID to delete: ";
-                int id; std::cin >> id; std::cin.ignore();
+                int id;
+                std::cin >> id;
+                std::cin.ignore();
 
                 deleteSchedule(id);
-                std::cout << "Schedule deleted if existed.\n";
+                std::cout << "Schedule deleted if existed. \n";
                 break;
             }
             default:
-                std::cout << RED << "Invalid option.\n" << RESET;
+                std::cout << RED << "Invalid option. \n" << RESET;
         }
     }
 }
