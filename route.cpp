@@ -4,7 +4,7 @@
 std::vector<Route> routes;
 static int currentRouteId = 1;
 
-void createRoute(const std::string& name, int transportId, const std::vector<int>& stopIds) {
+void createRoute(const std::string &name, int transportId, const std::vector<int> &stopIds) {
     Route r;
     r.id = currentRouteId++;
     r.name = name;
@@ -13,15 +13,15 @@ void createRoute(const std::string& name, int transportId, const std::vector<int
     routes.push_back(r);
 }
 
-Route* getRouteById(int id) {
-    for (auto& r : routes) {
+Route *getRouteById(int id) {
+    for (auto &r: routes) {
         if (r.id == id) return &r;
     }
     return nullptr;
 }
 
-void updateRoute(int id, const std::string& newName, int newTransportId, const std::vector<int>& newStopIds) {
-    Route* r = getRouteById(id);
+void updateRoute(int id, const std::string &newName, int newTransportId, const std::vector<int> &newStopIds) {
+    Route *r = getRouteById(id);
     if (r) {
         r->name = newName;
         r->transportId = newTransportId;
@@ -31,5 +31,5 @@ void updateRoute(int id, const std::string& newName, int newTransportId, const s
 
 void deleteRoute(int id) {
     routes.erase(std::remove_if(routes.begin(), routes.end(),
-        [id](const Route& r) { return r.id == id; }), routes.end());
+                                [id](const Route &r) { return r.id == id; }), routes.end());
 }

@@ -8,9 +8,10 @@ void manageRoutes();
 
 class RouteManager {
 public:
-    std::vector<Route*> routes;
+    std::vector<Route *> routes;
 
-    void addRoute(Route* r);
+    void addRoute(Route *r);
+
     void listRoutes();
 };
 

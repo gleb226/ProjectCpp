@@ -20,58 +20,58 @@ void saveAllData() {
     saveRoutes();
     saveSchedules();
 
-    std::cout << GREEN << "All data saved successfully!" << RESET << std::endl;
+    std::cout << GREEN << "All data saved successfully! \n" << RESET;
 }
 
 void loadAllData() {
-    std::cout << MINT << "\n=== Loading Data ===" << RESET << std::endl;
+    std::cout << MINT << "\n=== Loading Data === \n" << RESET;
 
     loadStops();
     loadTransports();
     loadRoutes();
     loadSchedules();
 
-    std::cout << BLUE << "All data loaded successfully!" << RESET << std::endl;
+    std::cout << BLUE << "All data loaded successfully! \n" << RESET;
 }
 
 void saveStops() {
     std::ofstream file("stops.txt");
     if (!file.is_open()) {
-        std::cout << ORANGE << "Failed to open stops.txt for writing." << RESET << std::endl;
+        std::cout << ORANGE << "Failed to open stops.txt for writing. \n" << RESET;
         return;
     }
 
-    for (const auto& stop : stops) {
-        file << stop.id << "|" << stop.name << "|" << stop.location << std::endl;
+    for (const auto &stop: stops) {
+        file << stop.id << "|" << stop.name << "| \n" << stop.location;
     }
 
-    std::cout << LIGHT_GREEN << "Stops saved to file" << RESET << std::endl;
+    std::cout << LIGHT_GREEN << "Stops saved to file \n" << RESET;
     file.close();
 }
 
 void saveTransports() {
     std::ofstream file("transports.txt");
     if (!file.is_open()) {
-        std::cout << ORANGE << "Failed to open transports.txt for writing." << RESET << std::endl;
+        std::cout << ORANGE << "Failed to open transports.txt for writing. \n" << RESET;
         return;
     }
 
-    for (const auto& transport : transports) {
-        file << transport.id << "|" << transport.name << std::endl;
+    for (const auto &transport: transports) {
+        file << transport.id << "| \n" << transport.name;
     }
 
-    std::cout << LIGHT_BLUE << "Transports saved to file" << RESET << std::endl;
+    std::cout << LIGHT_BLUE << "Transports saved to file \n" << RESET;
     file.close();
 }
 
 void saveRoutes() {
     std::ofstream file("routes.txt");
     if (!file.is_open()) {
-        std::cout << ORANGE << "Failed to open routes.txt for writing." << RESET << std::endl;
+        std::cout << ORANGE << "Failed to open routes.txt for writing. \n" << RESET;
         return;
     }
 
-    for (const auto& route : routes) {
+    for (const auto &route: routes) {
         file << route.id << "|" << route.name << "|" << route.transportId << "|";
         for (size_t i = 0; i < route.stopIds.size(); ++i) {
             if (i > 0) file << ",";
@@ -80,29 +80,30 @@ void saveRoutes() {
         file << std::endl;
     }
 
-    std::cout << LIGHT_PURPLE << "Routes saved to file" << RESET << std::endl;
+    std::cout << LIGHT_PURPLE << "Routes saved to file \n" << RESET;
     file.close();
 }
 
 void saveSchedules() {
     std::ofstream file("schedules.txt");
     if (!file.is_open()) {
-        std::cout << ORANGE << "Failed to open schedules.txt for writing." << RESET << std::endl;
+        std::cout << ORANGE << "Failed to open schedules.txt for writing. \n" << RESET;
         return;
     }
 
-    for (const auto& schedule : schedules) {
+    for (const auto &schedule: schedules) {
         file << schedule.id << "|" << schedule.routeId << "|"
-             << schedule.time << std::endl;
+                << schedule.time << std::endl;
     }
 
-    std::cout << LIGHT_YELLOW << "Schedules saved to file" << RESET << std::endl;
+    std::cout << LIGHT_YELLOW << "Schedules saved to file \n" << RESET;
     file.close();
 }
+
 void loadStops() {
     std::ifstream file("stops.txt");
     if (!file.is_open()) {
-        std::cout << GRAY << "ℹ No stops.txt found, starting with empty data" << RESET << std::endl;
+        std::cout << GRAY << "ℹ No stops.txt found, starting with empty data \n" << RESET;
         return;
     }
 
@@ -121,7 +122,7 @@ void loadStops() {
         }
     }
 
-    std::cout << LIGHT_GREEN << "Loaded " << stops.size() << " stops" << RESET << std::endl;
+    std::cout << LIGHT_GREEN << "Loaded " << stops.size() << " stops \n" << RESET;
 
     file.close();
 }
@@ -129,7 +130,7 @@ void loadStops() {
 void loadTransports() {
     std::ifstream file("transports.txt");
     if (!file.is_open()) {
-        std::cout << GRAY << "ℹ No transports.txt found, starting with empty data" << RESET << std::endl;
+        std::cout << GRAY << "ℹ No transports.txt found, starting with empty data \n" << RESET;
         return;
     }
 
@@ -145,14 +146,14 @@ void loadTransports() {
         }
     }
 
-    std::cout << LIGHT_GREEN << "Loaded " << transports.size() << " transports" << RESET << std::endl;
+    std::cout << LIGHT_GREEN << "Loaded " << transports.size() << " transports \n" << RESET;
     file.close();
 }
 
 void loadRoutes() {
     std::ifstream file("routes.txt");
     if (!file.is_open()) {
-        std::cout << GRAY << "ℹ No routes.txt found, starting with empty data" << RESET << std::endl;
+        std::cout << GRAY << "ℹ No routes.txt found, starting with empty data \n" << RESET;
         return;
     }
 
@@ -185,14 +186,14 @@ void loadRoutes() {
         }
     }
 
-    std::cout << LIGHT_GREEN << "Loaded " << routes.size() << " routes" << RESET << std::endl;
+    std::cout << LIGHT_GREEN << "Loaded " << routes.size() << " routes \n" << RESET;
     file.close();
 }
 
 void loadSchedules() {
     std::ifstream file("schedules.txt");
     if (!file.is_open()) {
-        std::cout << GRAY << "ℹ No schedules.txt found, starting with empty data" << RESET << std::endl;
+        std::cout << GRAY << "ℹ No schedules.txt found, starting with empty data \n" << RESET;
         return;
     }
 
@@ -211,6 +212,6 @@ void loadSchedules() {
         }
     }
 
-    std::cout << LIGHT_YELLOW << "✓ Loaded " << schedules.size() << " schedules" << RESET << std::endl;
+    std::cout << LIGHT_YELLOW << "✓ Loaded " << schedules.size() << " schedules \n" << RESET;
     file.close();
-}
+};

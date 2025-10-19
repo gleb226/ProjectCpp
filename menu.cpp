@@ -9,16 +9,16 @@
 #include "reports.h"
 
 void showMainMenu() {
-    std::cout << MINT << "\n====== Transport System ======\n" << RESET;
-    std::cout << LAVENDER <<"1. Manage Stops\n" << RESET;
-    std::cout << LAVENDER << "2. Manage Transports\n" << RESET;
-    std::cout << LAVENDER << "3. Manage Routes\n" << RESET;
-    std::cout << LAVENDER << "4. Manage Schedules\n" << RESET;
-    std::cout << PEACH << "5. Reports\n" << RESET;
-    std::cout << GREEN << "6. Save Data\n" << RESET;
-    std::cout << BLUE << "7. Load Data\n" << RESET;
-    std::cout << GRAY << "0. Exit\n" << RESET;
-    std::cout << "==============================\n";
+    std::cout << MINT << "\n====== Transport System ====== \n" << RESET;
+    std::cout << YELLOW << "1. Manage Stops \n";
+    std::cout << "2. Manage Transports \n";
+    std::cout << "3. Manage Routes \n";
+    std::cout << "4. Manage Schedules \n" << RESET;
+    std::cout << PEACH << "5. Reports \n" << RESET;
+    std::cout << GREEN << "6. Save Data \n" << RESET;
+    std::cout << BLUE << "7. Load Data \n" << RESET;
+    std::cout << GRAY << "0. Exit \n" << RESET;
+    std::cout << MINT << "============================== \n" << RESET;
     std::cout << "Enter choice: " << RESET;
 }
 
@@ -31,15 +31,24 @@ void handleUserInput() {
         std::cin >> choice;
 
         switch (choice) {
-            case 1: manageStops(); break;
-            case 2: manageTransports(); break;
-            case 3: manageRoutes(); break;
-            case 4: manageSchedules(); break;
-            case 5: showReports(); break;
-            case 6: saveAllData(); break;
-            case 7: loadAllData(); break;
-            case 0: running = false; break;
-            default: std::cout << RED << "Invalid choice. Try again.\n" << RESET; break;
+            case 1: manageStops();
+                break;
+            case 2: manageTransports();
+                break;
+            case 3: manageRoutes();
+                break;
+            case 4: manageSchedules();
+                break;
+            case 5: showReports();
+                break;
+            case 6: saveAllData();
+                break;
+            case 7: loadAllData();
+                break;
+            case 0: running = false;
+                break;
+            default: std::cout << RED << "Invalid choice. Try again. \n" << RESET;
+                break;
         }
     }
 }

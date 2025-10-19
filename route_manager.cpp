@@ -7,12 +7,12 @@
 
 void manageRoutes() {
     while (true) {
-        std::cout << "\n=== Manage Routes ===\n";
-        std::cout << LAVENDER << "1. Add Route\n";
-        std::cout << "2. List Routes\n";
-        std::cout << "3. Update Route\n";
-        std::cout << "4. Delete Route\n" << RESET;
-        std::cout << GRAY << "0. Back\n" << RESET;
+        std::cout << "\n=== Manage Routes === \n";
+        std::cout << LAVENDER << "1. Add Route \n";
+        std::cout << "2. List Routes \n";
+        std::cout << "3. Update Route \n";
+        std::cout << "4. Delete Route \n" << RESET;
+        std::cout << GRAY << "0. Back \n" << RESET;
         std::cout << "Choose option: ";
 
         int option;
@@ -44,24 +44,27 @@ void manageRoutes() {
                 }
 
                 createRoute(name, transportId, stopIds);
-                std::cout << GREEN << "Route added.\n" << RESET;
+                std::cout << GREEN << "Route added. \n" << RESET;
                 break;
             }
             case 2: {
-                for (const auto& r : routes) {
-                    std::cout << "ID: " << r.id << ", Name: " << r.name << ", TransportID: " << r.transportId << ", Stops: ";
-                    for (int sid : r.stopIds) std::cout << sid << ' ';
+                for (const auto &r: routes) {
+                    std::cout << "ID: " << r.id << ", Name: " << r.name << ", TransportID: " << r.transportId <<
+                            ", Stops: ";
+                    for (int sid: r.stopIds) std::cout << sid << ' ';
                     std::cout << "\n";
                 }
                 break;
             }
             case 3: {
                 std::cout << "Enter route ID to update: ";
-                int id; std::cin >> id; std::cin.ignore();
+                int id;
+                std::cin >> id;
+                std::cin.ignore();
 
-                Route* r = getRouteById(id);
+                Route *r = getRouteById(id);
                 if (!r) {
-                    std::cout << ORANGE << "Route not found.\n";
+                    std::cout << ORANGE << "Route not found. \n";
                     break;
                 }
 
@@ -84,19 +87,21 @@ void manageRoutes() {
                 while (iss >> sid) newStopIds.push_back(sid);
 
                 updateRoute(id, newName, newTransportId, newStopIds);
-                std::cout << LIGHT_GREEN << "Route updated.\n" << RESET;
+                std::cout << LIGHT_GREEN << "Route updated. \n" << RESET;
                 break;
             }
             case 4: {
                 std::cout << "Enter route ID to delete: ";
-                int id; std::cin >> id; std::cin.ignore();
+                int id;
+                std::cin >> id;
+                std::cin.ignore();
 
                 deleteRoute(id);
-                std::cout << "Route deleted if existed.\n";
+                std::cout << "Route deleted if existed. \n";
                 break;
             }
             default:
-                std::cout << RED << "Invalid option.\n" << RESET;
+                std::cout << RED << "Invalid option. \n" << RESET;
         }
     }
 }
